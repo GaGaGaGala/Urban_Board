@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Home - {{block.super }}{% endblock %}
+
+{% block navigation %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1>Login</h1>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+        <a href="board/advertisement_list"><button type="submit">Login</button></a>
+    <input type="hidden" name="next" value="{{ next }}">
+</form>
+{% endblock %}

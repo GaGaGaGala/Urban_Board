@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Home - {{block.super }}{% endblock %}
+
+{% block navigation %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1>Sign Up</h1>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+        <a href="/board/advertisement_list"><button>Sign up</button></a>
+</form>
+{% endblock %}

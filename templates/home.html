@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Home - {{block.super }}{% endblock %}
+
+{% block navigation %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1>Welcome to Our Site!</h1>
+    <p><a href="/board/">Go to the board</a></p>
+{% endblock %}

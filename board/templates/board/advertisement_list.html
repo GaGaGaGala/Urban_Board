@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Home - {{block.super }}{% endblock %}
+
+{% block navigation %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1>Advertisements</h1>
+    {% if user.is_authenticated %}
+        <a href="/board/add_advertisement"><button>Add Advertisement</button></a>
+    {% endif %}
+    <ul>
+        {% for advertisement in advertisements %}
+            <li>
+                <h2>{{ advertisement.title }}  {{ advertisement.autor }}</h2>
+                <p>{{ advertisement.content }}</p>
+                <a href="/board/advertisement_detail"><button>{{ advertisement.title }}</button></a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
