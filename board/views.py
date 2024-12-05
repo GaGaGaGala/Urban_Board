@@ -35,7 +35,7 @@ def add_advertisement(request):
             advertisement = form.save(commit=False)
             advertisement.author = request.user
             advertisement.save()
-            return redirect('board:advertisement_detail')
+            return redirect('board:advertisement_list')
     else:
         form = AdvertisementForm()
     return render(request, 'board/add_advertisement.html', {'form': form})

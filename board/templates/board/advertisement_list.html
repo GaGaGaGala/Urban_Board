@@ -14,9 +14,7 @@
     <ul>
         {% for advertisement in advertisements %}
             <li>
-                <h2>{{ advertisement.title }}  {{ advertisement.autor }}</h2>
-                <p>{{ advertisement.content }}</p>
-                <a href="/board/advertisement_detail"><button>{{ advertisement.title }}</button></a>
+                <a href="{% url 'board:advertisement_detail' pk=advertisement.pk %}">{{ advertisement.title }}</a>
             </li>
         {% endfor %}
     </ul>

@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Advertisement</h1>
     <h1>{{ advertisement.title }}</h1>
+    <h2>{{ advertisement.author.username }}</h2>
     <p>{{ advertisement.content }}</p>
 {% endblock %}
