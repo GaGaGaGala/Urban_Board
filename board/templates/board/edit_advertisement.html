@@ -7,10 +7,10 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Add Advertisements</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
+    <h1>Edit advertisement</h1>
+    <form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
     </form>
 {% endblock %}

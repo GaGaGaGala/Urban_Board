@@ -29,4 +29,5 @@ urlpatterns = [
     path('board/add_advertisement', board_views.add_advertisement, name='add_advertisement'),
     path('board/advertisement_list', board_views.advertisement_list, name='advertisement_list'),
     path('board/advertisement_detail', board_views.advertisement_detail, name='advertisement_detail'),
+    path('board/edit_advertisement', board_views.edit_advertisement, name='edit_advertisement'),
 ]
