@@ -5,7 +5,7 @@ from .forms import SignUpForm
 from django.contrib.auth import login
 from .models import Advertisement
 from .forms import AdvertisementForm
-from django.http import HttpResponseRedirect
+
 
 
 # Create your views here.
@@ -36,8 +36,7 @@ def add_advertisement(request):
         if form.is_valid():
             form.instance.author = request.user
             form.save()
-            return redirect('board:advertisement_detail', pk=int)
-            #return redirect('board:advertisement_list')
+            return redirect('board:advertisement_list')
     else:
         form = AdvertisementForm()
     return render(request, 'board/add_advertisement.html', {'form': form})
@@ -51,17 +50,19 @@ def advertisement_list(request):
 
 @login_required
 def edit_advertisement(request, pk):
+    #advertisement = Advertisement.objects.get(pk=pk)
+    print('Редактирую')
     advertisement = Advertisement.objects.get(pk=pk)
     if request.method == "POST":
         form = AdvertisementForm(request.POST, request.FILES, instance=advertisement)
         if form.is_valid():
             form.instance.author = request.user
             form.save()
-            return redirect('board:advertisement_detail', pk=int)
+            return redirect('board:advertisement_detail', pk=advertisement.pk)
             #return redirect('board:advertisement_list')
-        else:
-            form = AdvertisementForm(instance=advertisement)
-        return render(request, 'board/edit_advertisement.html', {'form': form, 'advertisement': advertisement})
+    else:
+        form = AdvertisementForm(instance=advertisement)
+    return render(request, 'board/edit_advertisement.html', {'form': form, 'advertisement': advertisement})
 
 
 
