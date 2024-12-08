@@ -31,7 +31,7 @@ def signup(request):
 
 
 def logout_view(request):
-    """Выход из приложения."""
+    """Выход из системы."""
     logout(request)
     return redirect('home')
 
