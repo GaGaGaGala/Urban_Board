@@ -78,5 +78,14 @@ def edit_advertisement(request, pk):
     return render(request, 'board/edit_advertisement.html', {'form': form, 'advertisement': advertisement})
 
 
+@login_required
+def delete_advertisement(request, pk):
+    """Представление для удаления объявления."""
+    advertisement = Advertisement.objects.get(pk=pk)
+    if request.method == "POST":
+        advertisement.delete()
+        return redirect('board:advertisement_list')
+    return render(request, 'board/delete_advertisement.html', {'advertisement': advertisement})
+
 
 

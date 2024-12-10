@@ -30,4 +30,5 @@ urlpatterns = [
     path('board/advertisement_list', board_views.advertisement_list, name='advertisement_list'),
     path('board/advertisement_detail', board_views.advertisement_detail, name='advertisement_detail'),
     path('board/edit_advertisement', board_views.edit_advertisement, name='edit_advertisement'),
+    path('board/delete_advertisement', board_views.delete_advertisement, name='delete_advertisement'),
 ]

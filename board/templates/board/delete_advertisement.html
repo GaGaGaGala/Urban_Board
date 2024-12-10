@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Board{{block.super }}{% endblock %}
+
+{% block navigation %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1>Delete advertisement</h1>
+    <form action="" method="POST">
+    {% csrf_token %}
+    <p>Are you sure you want to delete this advertisement?</p><input type="submit" value="Delete">
+<   </form>
+{% endblock %}
