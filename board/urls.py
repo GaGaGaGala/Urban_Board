@@ -1,5 +1,6 @@
-from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
 from . import views
 
 app_name = 'board'
@@ -10,5 +11,5 @@ urlpatterns = [
     path('add/', views.add_advertisement, name='add_advertisement'),
     path('signup/', views.signup, name='signup'),
     path('edit/<int:pk>/', views.edit_advertisement, name='edit_advertisement'),
-path('delete/<int:pk>/', views.delete_advertisement, name='delete_advertisement'),
-]
+    path('delete/<int:pk>/', views.delete_advertisement, name='delete_advertisement'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -8,9 +8,15 @@
 
 {% block content %}
     <h1>Add Advertisements</h1>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save</button>
     </form>
+    {% if advertisement.photo %}
+    <p class="photo">
+    <img src="{{ advertisement.photo.url }}" alt="connect" style="max-height:300px">
+    </p>
+    {% endif %}
+
 {% endblock %}

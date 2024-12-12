@@ -44,7 +44,8 @@ def add_advertisement(request):
         if form.is_valid():
             form.instance.author = request.user
             form.save()
-            return redirect('board:advertisement_list')
+            img_obj = form.instance
+            return redirect('board:advertisement_detail', pk=img_obj.pk)
     else:
         form = AdvertisementForm()
     return render(request, 'board/add_advertisement.html', {'form': form})
@@ -72,7 +73,8 @@ def edit_advertisement(request, pk):
         if form.is_valid():
             form.instance.author = request.user
             form.save()
-            return redirect('board:advertisement_detail', pk=advertisement.pk)
+            img_obj = form.instance
+            return redirect('board:advertisement_detail', pk=img_obj.pk)
     else:
         form = AdvertisementForm(instance=advertisement)
     return render(request, 'board/edit_advertisement.html', {'form': form, 'advertisement': advertisement})

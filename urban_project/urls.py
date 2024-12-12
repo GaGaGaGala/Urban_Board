@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
 from board import views as board_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,4 +33,10 @@ urlpatterns = [
     path('board/advertisement_detail', board_views.advertisement_detail, name='advertisement_detail'),
     path('board/edit_advertisement', board_views.edit_advertisement, name='edit_advertisement'),
     path('board/delete_advertisement', board_views.delete_advertisement, name='delete_advertisement'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL,
+                          document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+
