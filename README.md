@@ -122,3 +122,4 @@ URL-адреса настраиваются с помощью регулярны
     delete_advertisement.html - удаление объявления.
 Появилась возможность добавления пользователем фото в объявление: в models.py  добавлено поле- photo, откорректированы
 шаблоны страниц.
+На страницах advertisement_list и advertisement_detail отображается advertisement.author.username.
