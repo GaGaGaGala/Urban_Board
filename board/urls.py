@@ -12,4 +12,6 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('edit/<int:pk>/', views.edit_advertisement, name='edit_advertisement'),
     path('delete/<int:pk>/', views.delete_advertisement, name='delete_advertisement'),
+    path('likes/<int:pk>/', views.post_like, name='post_like'),
+    path('dislikes/<int:pk>/', views.post_dislike, name='post_dislike'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

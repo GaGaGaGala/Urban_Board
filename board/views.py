@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from .forms import SignUpForm
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 from .models import Advertisement
 from .forms import AdvertisementForm
-
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 def base(request):
     """Представление для базового шаблона."""
@@ -54,13 +55,31 @@ def add_advertisement(request):
 def advertisement_detail(request, pk):
     """Представление для страницы конкретного объявления."""
     advertisement = Advertisement.objects.get(pk=pk)
-    return render(request, 'board/advertisement_detail.html', {'advertisement': advertisement})
+    context = {
+        'advertisement': advertisement,
+    }
+    likes_connected = get_object_or_404(Advertisement, id=pk)
+    dislikes = False
+    if likes_connected.likes.filter(id=request.user.id).exists():
+        dislikes = True
+    context['number_of_likes'] = likes_connected.number_of_likes(),
+    context['post_is_dislikes'] = dislikes
+    return render(request, 'board/advertisement_detail.html', context=context)
 
 
 def advertisement_list(request):
     """Все объявления."""
     advertisements = Advertisement.objects.all()
-    return render(request, 'board/advertisement_list.html', {'advertisements': advertisements})
+    count_likes = Advertisement.objects.filter(likes__id=request.user.id).count() + 1
+    count_dislikes = Advertisement.objects.filter(dislikes__id=request.user.id).count() + 1
+    context = {
+        'advertisements': advertisements,
+        'count_likes': count_likes,
+        'count_dislikes': count_dislikes
+    }
+    print('count_likes', count_likes)
+    print('count_dislikes', count_dislikes)
+    return render(request, 'board/advertisement_list.html', context=context )
 
 
 @login_required
@@ -90,4 +109,25 @@ def delete_advertisement(request, pk):
     return render(request, 'board/delete_advertisement.html', {'advertisement': advertisement})
 
 
+@login_required
+def post_like(request, pk):
+    """Возможность пользователя ставить лайк."""
+    post = get_object_or_404(Advertisement, pk=pk)
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
 
+    return HttpResponseRedirect(reverse('board:advertisement_detail', args=[str(pk)]))
+
+
+@login_required
+def post_dislike(request, pk):
+    """А так же дизлайк."""
+    post = get_object_or_404(Advertisement, pk=pk)
+    if post.dislikes.filter(id=request.user.id).exists():
+        post.dislikes.remove(request.user)
+    else:
+        post.dislikes.add(request.user)
+
+    return HttpResponseRedirect(reverse('board:advertisement_detail', args=[str(pk)]))

@@ -36,6 +36,7 @@
     <a href="{% url 'login' %}">Login</a>
     <a href="{% url 'signup' %}">Sign Up</a>
     {% endif %}
+    <p style="float: right; color: #f2f2f2">{{ user.username }} <br></p>
     {% endblock %}
 </div>
 <main>

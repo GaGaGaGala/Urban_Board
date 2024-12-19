@@ -22,4 +22,22 @@
     <a href="{% url 'board:edit_advertisement' advertisement.pk %}">Edit   </a>
     <a href="{% url 'board:delete_advertisement' advertisement.pk %}">   Delete</a>
     {% endif %}
+
+    {% if user.is_authenticated %}
+        <form action="{% url 'board:post_like' advertisement.pk %}" method="POST">{{advertisement.pk}}
+        {% csrf_token %}
+        <p>
+        {% if post_is_dislikes %}
+        <button type="submit" name="post_id" value="{{advertisement.pk}}" class="btn btn-info"><img src="{% static 'board/images/dislike.png' %}" alt="Dislike">Not like</button>
+        {% else %}
+        <button type="submit" name="post_id" value="{{advertisement.pk}}" class="btn btn-info"><img src="{% static 'board/images/like.png' %}" alt="Like">Like</button>
+        {% endif %}
+        </p>
+    </form>
+    {% else %}
+    <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Register to like, dislike!</a><br>
+    {% endif %}
+    <strong class="text-secondary">{{ number_of_likes }} Like{{ number_of_likes|pluralize }}</strong>
+    <a href="{% url 'board:advertisement_list' %}">Back to advertisements</a>
+
 {% endblock %}

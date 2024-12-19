@@ -33,6 +33,8 @@ urlpatterns = [
     path('board/advertisement_detail', board_views.advertisement_detail, name='advertisement_detail'),
     path('board/edit_advertisement', board_views.edit_advertisement, name='edit_advertisement'),
     path('board/delete_advertisement', board_views.delete_advertisement, name='delete_advertisement'),
+    path('board/post_like', board_views.post_like, name='post_like'),
+    path('board/post_dislike', board_views.post_dislike, name='post_dislike'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
