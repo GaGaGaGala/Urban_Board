@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Board{{block.super }}{% endblock %}
+
+{% block navigation %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1>All the authors ads {{ advertisement.author.username=search_author }}</h1>
+    <ul>
+        {% for search_advertisements in advertisements %}
+            <li>
+                <h3>{{ advertisement.title }}</h3>
+                <p>{{ advertisement.content }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

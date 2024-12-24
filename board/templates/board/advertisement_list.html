@@ -11,6 +11,12 @@
     {% if user.is_authenticated %}
         <a href="/board/add_advertisement"><button>Add Advertisement</button></a>
     {% endif %}
+    {% if user.is_authenticated %}
+        <form>
+            <input class="search-field" type="search" name="search_author" placeholder="Поиск по сайту...">
+            <a href="{% url 'board:advertisement_author_list' %}">{{ search_author }}<button>search</button></a>
+        </form>
+    {% endif %}
     <ul>
         {% for advertisement in advertisements %}
             <li>

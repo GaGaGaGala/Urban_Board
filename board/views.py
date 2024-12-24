@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from .forms import SignUpForm
 from django.contrib.auth import login, authenticate
-from .models import Advertisement
+from .models import Advertisement, User
 from .forms import AdvertisementForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -131,3 +131,20 @@ def post_dislike(request, pk):
         post.dislikes.add(request.user)
 
     return HttpResponseRedirect(reverse('board:advertisement_detail', args=[str(pk)]))
+
+
+def advertisement_author_list(request):
+    """Поиск объявлений по автору"""
+    search_author = User.objects.get(author=request.user.id)
+    search_advertisements = Advertisement.objects.filter(author=search_author)
+    count_likes = Advertisement.objects.filter(likes__id=request.user.id).count() + 1
+    count_dislikes = Advertisement.objects.filter(dislikes__id=request.user.id).count() + 1
+    context = {
+        'author': search_author,
+        'advertisements':  search_advertisements,
+        'count_likes': count_likes,
+        'count_dislikes': count_dislikes
+    }
+    print('count_likes', count_likes)
+    print('count_dislikes', count_dislikes)
+    return render(request, 'board/advertisement_author_list.html', context=context)

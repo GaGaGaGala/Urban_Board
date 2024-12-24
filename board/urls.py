@@ -14,4 +14,5 @@ urlpatterns = [
     path('delete/<int:pk>/', views.delete_advertisement, name='delete_advertisement'),
     path('likes/<int:pk>/', views.post_like, name='post_like'),
     path('dislikes/<int:pk>/', views.post_dislike, name='post_dislike'),
+    path('advertisement_author_list/', views.advertisement_author_list, name='advertisement_author_list'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -126,3 +126,4 @@ URL-адреса настраиваются с помощью регулярны
 На страницах advertisement_list и advertisement_detail отображается advertisement.author.username.
 Добавлены шаблоны для создания пользователем лайков/дизлайков и их подсчЁта.
 На странице advertisement_detail отображается количество лайков/дизлайков.
+Появилась возможность поиска объявлений по автору: def advertisement_author_list.
