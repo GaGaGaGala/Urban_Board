@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Board{{block.super }}{% endblock %}
+
+{% block navigation %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1>Profile</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <button type="submit">Сохранить изменения</button>
+    </form>
+    {% if user.profile.profile_pic %}
+      <img src="{{ profile.profile_pic.url }}" height=100 width=100><br><br>
+      <input type="submit" value="Save">
+    {% endif %}
+    {% if profile.VK %}
+      <p><strong>VK:</strong> {{ profile.vk }}</p><br><br>
+    {% endif %}
+    {% if profile.instagram %}
+      <p><strong>Instagram:</strong> {{ profile.instagram }}</p><br><br>
+    {% endif %}
+    <h2>{{ user.get_full_name }}</h2>
+    <ul>
+        <li>{{ user.username }}</li>
+        <li>{{ user.profile.location }}</li>
+        <li>{{ user.profile.birth_date }}</li>
+        <li>{{ user.profile.advertisement_count }}</li>
+    </ul>
+{% endblock %}

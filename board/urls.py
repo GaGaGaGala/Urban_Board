@@ -15,4 +15,5 @@ urlpatterns = [
     path('likes/<int:pk>/', views.post_like, name='post_like'),
     path('dislikes/<int:pk>/', views.post_dislike, name='post_dislike'),
     path('advertisement_author_list/', views.advertisement_author_list, name='advertisement_author_list'),
+    path('profile/', views.update_profile, name='profile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

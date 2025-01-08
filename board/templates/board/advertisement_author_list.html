@@ -7,13 +7,15 @@
 {% endblock %}
 
 {% block content %}
-    <h1>All the authors ads {{ advertisement.author.username=search_author }}</h1>
-    <ul>
-        {% for search_advertisements in advertisements %}
-            <li>
+    <h1>All the authors ads </h1>
+
+    <p>{{ search_author }}</p>
+    {% if search_author in advertisement.author.username %}
+            {% for search_advertisement  in advertisements %}
                 <h3>{{ advertisement.title }}</h3>
                 <p>{{ advertisement.content }}</p>
-            </li>
-        {% endfor %}
-    </ul>
+            {% endfor %}
+    {% else %}
+        <p>The author was not found</p>
+    {% endif %}
 {% endblock %}

@@ -21,9 +21,11 @@
     {% if advertisement.author == user %}
     <a href="{% url 'board:edit_advertisement' advertisement.pk %}">Edit   </a>
     <a href="{% url 'board:delete_advertisement' advertisement.pk %}">   Delete</a>
+    <a href="{% url 'board:profile' %}"> Profile</a>
     {% endif %}
 
     {% if user.is_authenticated %}
+        <a href="{% url 'board:advertisement_author_list' %}">All the authors ads</a>
         <form action="{% url 'board:post_like' advertisement.pk %}" method="POST">{{advertisement.pk}}
         {% csrf_token %}
         <p>
