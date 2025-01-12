@@ -7,15 +7,13 @@
 {% endblock %}
 
 {% block content %}
-    <h1>All the authors ads </h1>
+    <h1>All the authors {{ advertisement.author.username }} ads </h1>
+    {%  for advertisement in advertisements %}
+        <h3>{{ advertisement.title }}</h3>
+        <p>{{ advertisement.content }}</p>
+        <p>Likes: {{ count_likes }}, Dislikes: {{ count_dislikes }}</p>
+        <a href="{% url 'board:advertisement_detail' pk=advertisement.pk %}">Go to the ad</a>
+        <hr>
+    {% endfor %}
 
-    <p>{{ search_author }}</p>
-    {% if search_author in advertisement.author.username %}
-            {% for search_advertisement  in advertisements %}
-                <h3>{{ advertisement.title }}</h3>
-                <p>{{ advertisement.content }}</p>
-            {% endfor %}
-    {% else %}
-        <p>The author was not found</p>
-    {% endif %}
 {% endblock %}

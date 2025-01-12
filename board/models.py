@@ -51,7 +51,7 @@ class Advertisement(models.Model):
     dislikes = models.ManyToManyField(User, related_name='Dislikes', blank=True)
 
     def __str__(self):
-        return self.title, self.author, self.photo, self.likes, self.dislikes
+        return '{} {} {}'.format(self.title, self.author, self.photo, self.likes, self.dislikes)
 
     def number_of_likes(self):
         return self.likes.count()

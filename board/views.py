@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db import transaction
 from django. contrib import messages
-from django.views.generic.detail import DetailView
+from django.core.paginator import Paginator
 
 
 def base(request):
@@ -82,17 +82,26 @@ def advertisement_detail(request, pk):
 
 def advertisement_list(request):
     """Все объявления."""
-    advertisements = Advertisement.objects.all()
+    advertisements = Advertisement.objects.all().order_by('-created_at')
+    items_per_page = request.GET.get('items_per_page') or 5
+    try:
+        items_per_page = int(items_per_page)
+    except ValueError:
+        items_per_page = 5
+    paginator = Paginator(advertisements, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     count_likes = Advertisement.objects.filter(likes__id=request.user.id).count() + 1
     count_dislikes = Advertisement.objects.filter(dislikes__id=request.user.id).count() + 1
     context = {
         'advertisements': advertisements,
         'count_likes': count_likes,
-        'count_dislikes': count_dislikes
+        'count_dislikes': count_dislikes,
+        'page_obj': page_obj,
+        'items_per_page': items_per_page
     }
-    print('count_likes', count_likes)
-    print('count_dislikes', count_dislikes)
-    return render(request, 'board/advertisement_list.html', context=context)
+    return render(request, 'board/advertisement_list.html', context)
 
 
 @login_required
@@ -148,20 +157,27 @@ def post_dislike(request, pk):
 
 
 def advertisement_author_list(request):
-    """Поиск объявлений по автору"""
-    search_author = User.objects.get(id=1)
-
-    search_advertisements = Advertisement.objects.filter(author=request.user.id)
+    """Выводит список объявлений по автору"""
+    advertisements = Advertisement.objects.filter(author=request.user.id)
     count_likes = Advertisement.objects.filter(likes__id=request.user.id).count() + 1
     count_dislikes = Advertisement.objects.filter(dislikes__id=request.user.id).count() + 1
     context = {
-        'author': search_author,
-        'advertisements': search_advertisements,
+        'advertisements': advertisements,
         'count_likes': count_likes,
         'count_dislikes': count_dislikes
     }
-
     return render(request, 'board/advertisement_author_list.html', context=context)
+
+
+def search_author_list(request):
+    """Поиск объявлений по автору"""
+    search_author = User.objects.get(id=request.user.id)
+    search_advertisements = Advertisement.objects.filter(author=request.user.id)
+    context = {
+        'search_author': search_author,
+        'search_advertisements': search_advertisements
+    }
+    return render(request, 'board/search_author_list.html', context=context)
 
 
 @login_required
